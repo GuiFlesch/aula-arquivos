@@ -6,19 +6,29 @@ import java.util.Scanner;
 public class Program {
 
     public static void main(String[] args) {
-        
-        String[] lines = new String[] { "Good morning", "Good afternoon", "Good night"};
 
-        String path = "c:\\teste\\out.txt";
+        Scanner sc = new Scanner(System.in);
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))){
-            for (String line : lines){
-                bw.write(line);
-                bw.newLine();
-            }
+        System.out.println("Enter a folder path: ");
+        String strPath = sc.nextLine();
+
+        File path = new File(strPath);
+
+        File[] folders = path.listFiles(File::isDirectory);
+        File[] files = path.listFiles(File::isFile);
+
+        System.out.println("FOLDERS: ");
+        for (File folder : folders){
+            System.out.println(folder);
         }
-        catch (IOException e){
-            e.printStackTrace();
+        System.out.println("FOLDERS: ");
+        for (File file : files) {
+            System.out.println(file);
         }
+
+        boolean sucess = new File(strPath + "\\subdir").mkdir();
+        System.out.println("Directory created successfully" + sucess);
+
+        sc.close();
     }
 }
